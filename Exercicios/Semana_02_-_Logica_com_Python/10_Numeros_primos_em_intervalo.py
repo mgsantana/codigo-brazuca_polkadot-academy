@@ -17,8 +17,8 @@ def eh_primo(num):
     return True
 
 # Laço para teste dos números através da chamada da função 'eh_primo'
-for i in range(num1,num2):
-    if eh_primo(i) == True:
+for i in range(num1,num2+1):
+    if eh_primo(i):
         listPrimos.append(i)
 
 # Imprime a lista com os números primos encontrados no intervalo
