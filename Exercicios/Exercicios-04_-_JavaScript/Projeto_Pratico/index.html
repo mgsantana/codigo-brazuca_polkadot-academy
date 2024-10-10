@@ -3,29 +3,43 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Simulador de Preço de Gas - Polkadot</title>
+		<title>Simulador de preço de Gas - Polkadot</title>
 		<link rel="stylesheet" href="styles.css">
-	</head>
-	<body>
-		<h1>Simulador de Preço de Gas - Polkadot</h1>
-		<form id="gas-form">
-			<label for="valor-transacao">Valor da Transação (DOT):</label>
-			<input type="number" id="valor-transacao" required>
-			<label for="complexidade">Complexidade da Transação:</label>
-			<select id="complexidade" required>
-				<option value="baixa">Baixa</option>
-				<option value="media">Média</option>
-				<option value="alta">Alta</option>
-			</select>
-			<label for="moedaFiat">Moeda de conversão:</label>
-			<select id="moedaFiat">
-				<option value="usd">USD - Dólar Americano ($)</option>
-				<option value="eur">EUR - Euro (€)</option>
-				<option value="brl">BRL - Real Brasileiro (R$)</option>
-			</select>
-			<button type="button" id="calcular">Calcular Preço do Gas</button>
-		</form>
-		<div id="resultado"></div>
-		<script src="main.js"></script>
-	</body>
+	</head><p style="margin: 1;">
+		<body>
+			<div id="contador">
+				<p><b>Transações: <span id="contagem">0</span></b></p>
+			</div>
+			<div id="title">
+				<h1>Simulador de preço de Gas - Polkadot</h1>
+			</div>
+			<div id="container">
+				<div id="form">
+					<form id="gas-form">
+						<label for="valor-transacao">Valor da Transação (DOT):</label>
+						<input type="number" id="valor-transacao" min="1" required>
+						<label for="complexidade">Complexidade da Transação:</label>
+						<select id="complexidade" required>
+							<option value="baixa">Baixa</option>
+							<option value="media">Média</option>
+							<option value="alta">Alta</option>
+						</select>
+						<label for="moedaFiat">Moeda de conversão:</label>
+						<select id="moedaFiat">
+							<option value="usd">USD - Dólar Americano ($)</option>
+							<option value="eur">EUR - Euro (€)</option>
+							<option value="brl">BRL - Real Brasileiro (R$)</option>
+						</select>
+						<button type="button" id="calcular">Calcular Preço do Gas</button>
+					</form>
+				</div>
+				<div id="resultado"></div>
+				<div id="historico">
+					<h3>Histórico de transações:</h3>
+					<ul id="transacoes"></ul>
+				</div>
+			</div>
+			<div id="alerta"></div>
+			<script src="main.js"></script>
+		</body>
 </html>
