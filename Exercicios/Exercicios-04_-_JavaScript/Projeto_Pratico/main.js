@@ -1,6 +1,7 @@
 let contaTransacoes = 0;
 let timerLigado = false;
 let historico = [];
+let tempoRestante = 120; // 120 segundos
 
 document.getElementById("calcular").addEventListener("click", function () {
   // Captura os valores inseridos pelo usuário
@@ -45,7 +46,7 @@ document.getElementById("calcular").addEventListener("click", function () {
   let custoFiat = custoGas * fatorFiat; 
 
   // Valida o valor digitado para transação
-  if (valorTransacao <= 0 || isNaN(valorTransacao)) {
+  if (!valorTransacao || valorTransacao <= 0 || isNaN(valorTransacao)) {
     document.getElementById("resultado").innerHTML =
       '<p style="color:red; margin-left: 1em; margin-right: 1em;">Por favor, insira um valor maior que 0</p >';
   } else {
@@ -60,25 +61,24 @@ document.getElementById("calcular").addEventListener("click", function () {
 	// Incrementa o contador de simulações
 	contaTransacoes++;
 	document.getElementById("contagem").innerText = contaTransacoes;
-  }
-
-  if (!timerLigado) {
-    setTimeout(zeraContagem, 60000); // Zera contagem após 1 min.
-    timerLigado = true;
-	document.getElementById("alerta").innerHTML = `
-    <p>Após 1 min, o histórico de transações será apagado!</p>`;
-  }
   
-  // Define array para guardas valores no historico
-  historico.push( {
-    valor: valorTransacao,
-    complex: complexidade.charAt(0).toUpperCase() + complexidade.slice(1),
-    custoGas: custoGas.toFixed(2),
-    custoFiat: custoFiat.toFixed(2),
-    moedaFiat: moedaFiat.toUpperCase()
-  });
-
-  atualizaHistorico();
+	if (!timerLigado) {
+      timerLigado = true;
+	  iniciaCronometro();
+	  document.getElementById("alerta").innerHTML = `
+    <p>Após 2 min, o histórico de transações será apagado!</p>`;
+	}
+  
+	// Define array para guardas valores no historico
+	historico.push( {
+      valor: valorTransacao,
+      complex: complexidade.charAt(0).toUpperCase() + complexidade.slice(1),
+      custoGas: custoGas.toFixed(2),
+      custoFiat: custoFiat.toFixed(2),
+      moedaFiat: moedaFiat.toUpperCase()
+	});
+	atualizaHistorico();
+  }
 });
 
 // Função para atualização de valores do histório e exibição em html
@@ -95,6 +95,30 @@ function atualizaHistorico() {
   });
 }
 
+// Função para iniciar o cronômetro regressivo
+function iniciaCronometro() {
+  let cronometro = setInterval(function () {
+	let minutos = Math.floor(tempoRestante / 60);
+    let segundos = tempoRestante % 60;
+	
+    // Formata os segundos para sempre exibir dois dígitos
+    segundos = segundos < 10 ? "0" + segundos : segundos;
+	
+    // Atualiza o cronômetro na página
+    document.getElementById("cronometro").innerText = `${minutos}:${segundos}`;
+	
+    if (tempoRestante <= 0) {
+      clearInterval(cronometro); // Para o cronômetro quando chegar a zero
+      zeraContagem(); // Zera o histórico
+      timerLigado = false;
+      tempoRestante = 60; // Reinicia o tempo para 60 segundos
+    }
+	
+    tempoRestante--; // Diminui 1 segundo a cada iteração
+  }, 1000);
+}
+
+// Função que zera o histórico e a contagem
 function zeraContagem() {
   if (contaTransacoes >= 1) {
     alert("Tempo da sessão esgotado, o histórico de transações será apagado!");
@@ -105,5 +129,7 @@ function zeraContagem() {
 	document.getElementById("transacoes").innerText = "";
 	document.getElementById("alerta").innerText = "";
 	historico = [];
+    tempoRestante = 60; // Reinicia o cronômetro para 60 segundos
+    document.getElementById("cronometro").innerText = "02:00"; // Reinicia a exibição do cronômetro
   }
 }
