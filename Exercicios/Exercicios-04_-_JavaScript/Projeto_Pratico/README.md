@@ -1,3 +1,5 @@
+![Simulador de gas Polkadot](https://github.com/user-attachments/assets/53b08abd-678c-4112-b84e-e5fee8890f61)
+
 # Melhorias e Desafios:
 - Adicionar Validação para Valores de Transação:
   Adicione uma validação que garanta que o valor da transação seja maior que zero.
