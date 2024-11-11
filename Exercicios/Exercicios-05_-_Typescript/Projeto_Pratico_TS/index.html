@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Consulta de Saldo e Transações - Ethereum</title>
+</head>
+<body>
+	<h1>Consulta de Saldo e Transações</h1>
+	<label for="network-select">Escolha a rede:</label>
+	<select id="network-select">
+		<option value="mainnet">Mainnet</option>
+		<option value="goerli">Goerli</option>
+		<option value="sepolia">Sepolia</option>
+	</select>
+
+	<input type="text" id="wallet-address" placeholder="Endereço da carteira" />
+	<button id="check-balance">Consultar Saldo</button>
+	<button id="check-transactions">Ver Transações</button>
+	<p id="balance"></p>
+	<div id="transactions"></div>
+
+	<div class="pagination">
+		<button id="prev-page" disabled>Anterior</button>
+		<button id="next-page" disabled>Próxima</button>
+	</div>
+	<script src="bundle.js"></script>
+</body>
+</html>

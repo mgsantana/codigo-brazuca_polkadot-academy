@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+	"target": "ES6",
+	"module": "nodenext",
+	"strict": true,
+	"esModuleInterop": true,
+	"outDir": "./dist",
+	"moduleResolution": "nodenext",
+	"sourceMap": true,
+	"paths": {
+      "ethers": ["./node_modules/ethers"]
+    }
+  },
+  "include": [
+	"src/**/*"
+  ]
+}
